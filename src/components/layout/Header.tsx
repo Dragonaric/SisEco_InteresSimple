@@ -4,6 +4,16 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Calculator, BookOpen, Home } from 'lucide-react'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
+import { cn } from "@/lib/utils"
 
 const navigation = [
   { name: 'Inicio', href: '/', icon: Home },
@@ -15,7 +25,7 @@ export function Header() {
   const pathname = usePathname()
 
   return (
-    <header className="bg-dark shadow-lg">
+    <header className="border-b">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo y título */}
@@ -26,71 +36,75 @@ export function Header() {
               </div>
             </div>
             <div>
-              <h1 className="text-white text-lg font-bold">
+              <h1 className="text-lg font-bold">
                 Calculadora de Interés Simple
               </h1>
-              <p className="text-blue-200 text-sm">
+              <p className="text-sm text-muted-foreground">
                 Universidad Mayor de San Simón
               </p>
             </div>
           </div>
 
-          {/* Navegación */}
-          <nav className="hidden md:flex space-x-8">
-            {navigation.map((item) => {
-              const Icon = item.icon
-              const isActive = pathname === item.href
-              
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    isActive
-                      ? 'bg-primary text-white'
-                      : 'text-blue-200 hover:text-white hover:bg-blue-800'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{item.name}</span>
-                </Link>
-              )
-            })}
-          </nav>
+          {/* Navegación Desktop */}
+          <NavigationMenu className="hidden md:flex">
+            <NavigationMenuList>
+              {navigation.map((item) => {
+                const Icon = item.icon
+                const isActive = pathname === item.href
+                
+                return (
+                  <NavigationMenuItem key={item.name}>
+                    <Link href={item.href} legacyBehavior passHref>
+                      <NavigationMenuLink
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          isActive && "bg-accent text-accent-foreground"
+                        )}
+                      >
+                        <Icon className="mr-2 h-4 w-4" />
+                        {item.name}
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                )
+              })}
+            </NavigationMenuList>
+          </NavigationMenu>
 
           {/* Menú móvil */}
-          <div className="md:hidden">
-            <button className="text-blue-200 hover:text-white p-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Navegación móvil */}
-        <div className="md:hidden border-t border-blue-800 py-4">
-          <div className="flex flex-col space-y-2">
-            {navigation.map((item) => {
-              const Icon = item.icon
-              const isActive = pathname === item.href
-              
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    isActive
-                      ? 'bg-primary text-white'
-                      : 'text-blue-200 hover:text-white hover:bg-blue-800'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{item.name}</span>
-                </Link>
-              )
-            })}
-          </div>
+          <NavigationMenu className="md:hidden">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Menú</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[200px] gap-3 p-4">
+                    {navigation.map((item) => {
+                      const Icon = item.icon
+                      const isActive = pathname === item.href
+                      
+                      return (
+                        <li key={item.name}>
+                          <Link href={item.href} legacyBehavior passHref>
+                            <NavigationMenuLink
+                              className={cn(
+                                "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                                isActive && "bg-accent text-accent-foreground"
+                              )}
+                            >
+                              <div className="flex items-center">
+                                <Icon className="mr-2 h-4 w-4" />
+                                {item.name}
+                              </div>
+                            </NavigationMenuLink>
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
       </div>
     </header>
