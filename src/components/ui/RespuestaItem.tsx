@@ -4,15 +4,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-// Ya no se necesita esta interfaz
-// interface Usuario { ... }
-
-interface Respuesta {
-  id: number;
-  respuesta: string;
-  fecha_creacion: string | Date;
-}
-
 interface RespuestaItemProps {
   respuesta: {
     id: number;

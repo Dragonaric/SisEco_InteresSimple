@@ -15,7 +15,7 @@ const eslintConfig = [
   {
     files: ["**/*.ts", "**/*.tsx"],
     plugins: {
-      "@typescript-eslint": require("@typescript-eslint/eslint-plugin"),
+      "@typescript-eslint": (await import("@typescript-eslint/eslint-plugin")).default,
     },
     rules: {
       "@typescript-eslint/no-explicit-any": "warn" 

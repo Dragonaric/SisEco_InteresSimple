@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link'
-import { Calculator, BookOpen, TrendingUp, Users, Award, Lightbulb } from 'lucide-react'
+import { Calculator, BookOpen, TrendingUp, Lightbulb } from 'lucide-react'
 import { AnimatedPage } from './home/calculadora/components/shared/AnimatedContainer'
 
 export default function HomePage() {

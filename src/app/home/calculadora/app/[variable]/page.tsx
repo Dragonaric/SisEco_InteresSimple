@@ -66,7 +66,6 @@ export default function CalculatorPage() {
   const calculatorVariable = variable as CalculatorVariable;
   
   const {
-    inputs,
     result,
     error,
     calculate,
@@ -175,4 +174,4 @@ export default function CalculatorPage() {
       </div>
     </AnimatedPage>
   );
-} 
+}
