@@ -21,18 +21,33 @@ export function ResultCard({
 }: ResultCardProps) {
   const [copied, setCopied] = useState(false);
 
-  const formatValue = (value: number) => {
+  const formatValue = (key: string, value: number) => {
+    const numValue = typeof value === 'number' ? value : Number(value);
+    if (isNaN(numValue)) return '-';
+    if (key.toLowerCase().includes('interés') || key.toLowerCase().includes('tasa')) {
+      // Para tasa de interés
+      return new Intl.NumberFormat('es-BO', {
+        style: 'percent',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(numValue);
+    }
+    if (key.toLowerCase().includes('periodo')) {
+      // Para número de periodos
+      return numValue.toFixed(2);
+    }
+    // Para P, F, I (valores monetarios)
     return new Intl.NumberFormat('es-BO', {
       style: 'currency',
       currency: 'BOB',
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
-    }).format(value);
+    }).format(numValue);
   };
 
   const handleCopy = () => {
     const text = Object.entries(results)
-      .map(([key, value]) => `${key}: ${formatValue(value)}`)
+      .map(([key, value]) => `${key}: ${formatValue(key, value)}`)
       .join('\n');
     
     navigator.clipboard.writeText(text);
@@ -76,7 +91,7 @@ export function ResultCard({
                 {key}
               </span>
               <Badge variant="outline" className="text-lg font-mono">
-                {formatValue(value)}
+                {formatValue(key, value)}
               </Badge>
             </div>
           ))}

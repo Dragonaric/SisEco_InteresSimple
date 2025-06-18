@@ -28,25 +28,26 @@ export function useInterestCalculation(variable: CalculatorVariable) {
 
     Object.entries(validators).forEach(([field, rules]) => {
       const value = values[field];
-      
-      if (rules.required && !value) {
+      // Validar campo requerido
+      if (rules.required && (value === undefined || value === null || value.trim() === '')) {
         errors.push(`El campo ${field} es requerido`);
         return;
       }
-
+      // Validar que sea un número válido
+      if (value && isNaN(Number(value))) {
+        errors.push(`El campo ${field} debe ser un número válido`);
+        return;
+      }
       if (value) {
         const numValue = Number(value);
-
         if (rules.min !== undefined && numValue < rules.min) {
           errors.push(rules.message || `El valor mínimo para ${field} es ${rules.min}`);
         }
-
         if (rules.max !== undefined && numValue > rules.max) {
           errors.push(rules.message || `El valor máximo para ${field} es ${rules.max}`);
         }
       }
     });
-
     return errors;
   }, [variable]);
 

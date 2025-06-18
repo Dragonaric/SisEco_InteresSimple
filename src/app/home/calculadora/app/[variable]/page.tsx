@@ -8,7 +8,7 @@ import { FormulaDisplay } from '../../components/calculator/FormulaDisplay';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CalculatorVariable } from '../../utils/formulas';
-import { formatCurrency, formatPercent } from '../../utils/formulas';
+//import { formatCurrency, formatPercent } from '../../utils/formulas';
 import { AnimatedPage, AnimatedResult } from '../../components/shared/AnimatedContainer';
 import { InfoTooltip, HelpDialog } from '../../components/shared/Tooltip'; 
 
@@ -73,12 +73,6 @@ export default function CalculatorPage() {
     getRequiredFields
   } = useInterestCalculation(calculatorVariable);
 
-  const formatResult = (value: number, key: string) => {
-    if (key === 'i') return formatPercent(value);
-    if (['P', 'F', 'I'].includes(key)) return formatCurrency(value);
-    return value.toFixed(2);
-  };
-
   return (
     <AnimatedPage>
       <div className="calculator-container" role="main" aria-label={`Calculadora de ${variableLabels[calculatorVariable]}`}>
@@ -123,6 +117,7 @@ export default function CalculatorPage() {
                   <InputField
                     name={field}
                     label={variableLabels[field as CalculatorVariable]}
+                    type="number"
                     {...getFieldProps(field)}
                   />
                   <InfoTooltip
@@ -164,7 +159,7 @@ export default function CalculatorPage() {
                   title={`Resultado: ${variableLabels[calculatorVariable]}`}
                   results={Object.entries(result.breakdown).reduce((acc, [key, value]) => ({
                     ...acc,
-                    [variableLabels[key as CalculatorVariable]]: formatResult(value as number, key)
+                    [variableLabels[key as CalculatorVariable]]: Number(value)
                   }), {})}
                 />
               )}

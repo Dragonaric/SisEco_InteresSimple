@@ -1,7 +1,7 @@
 // components/layout/Footer.tsx
 'use client'
 
-import { Mail, Phone, MapPin, ExternalLink, BookText, Code, ShieldCheck } from 'lucide-react'
+import { Mail, MapPin, ExternalLink, BookText, Code, ShieldCheck } from 'lucide-react'
 import Link from 'next/link'
 
 export function Footer() {
@@ -23,26 +23,21 @@ export function Footer() {
               </h3>
             </div>
             <p className="text-blue-200 mb-6 text-sm leading-relaxed">
-              Calculadora de Interés Simple desarrollada por la Facultad de Ciencias Económicas
-              para facilitar el aprendizaje de conceptos financieros básicos en el área de
+              Calculadora de Interés Simple desarrollada por la Facultad de Tecnología para facilitar el aprendizaje de conceptos financieros básicos en el área de
               matemáticas financieras.
             </p>
             <div className="space-y-3 text-sm text-blue-200">
               <div className="flex items-start space-x-3">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-primary" />
-                <span>Cochabamba, Bolivia - Facultad de Ciencias Económicas</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-primary" />
-                <span>+591 4 4542563</span>
+                <span>Cochabamba, Bolivia - Facultad de Tecnología</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-primary" />
                 <a
-                  href="mailto:info@umss.edu.bo"
+                  href="mailto:franklinemanuelcapo@gmail.com"
                   className="hover:text-white transition-colors"
                 >
-                  info@umss.edu.bo
+                  franklinemanuelcapo@gmail.com
                 </a>
               </div>
             </div>
@@ -62,7 +57,7 @@ export function Footer() {
                   external: true
                 },
                 {
-                  name: 'Carrera Economía',
+                  name: 'Carrera de Ingenieria de sistemas',
                   href: 'https://www.fce.umss.edu.bo/webpage/',
                   badge: 'Nuevo'
                 }
@@ -113,6 +108,14 @@ export function Footer() {
               <div className="flex items-center">
                 <span className="w-24">Tecnologías:</span>
                 <span className="font-medium">Next.js, TypeScript</span>
+              </div>
+              <div className="flex items-center">
+                <span className="w-24">Responsable del código:</span>
+                <span className="font-medium">Grupo 1 del Sistemas Económico</span>
+              </div>
+              <div className="flex items-center">
+                <span className="w-24">Responsable directo:</span>
+                <span className="font-medium">Franklin Emanuel Garcia Gomez</span>
               </div>
             </div>
           </div>

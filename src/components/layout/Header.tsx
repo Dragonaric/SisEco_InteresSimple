@@ -16,7 +16,7 @@ const navigationItems = [
 	},
 	{
 		name: 'Calculadora',
-		href: '/home/calculadora/app/P',
+		href: '/home/calculadora/app',
 		icon: Calculator,
 		description: 'Calcula diferentes variables del interés simple'
 	},

@@ -12,35 +12,55 @@ export const formulas = {
   // Calcular Valor Presente (P)
   calculateP: (inputs: CalculatorInputs): number => {
     const { F, i, n } = inputs;
-    if (!F || !i || !n) throw new Error('Faltan valores requeridos');
+    if (
+      F === undefined || F === null || isNaN(F) ||
+      i === undefined || i === null || isNaN(i) ||
+      n === undefined || n === null || isNaN(n)
+    ) throw new Error('Faltan valores requeridos o hay valores inválidos');
     return F / (1 + i * n);
   },
 
   // Calcular Valor Futuro (F)
   calculateF: (inputs: CalculatorInputs): number => {
     const { P, i, n } = inputs;
-    if (!P || !i || !n) throw new Error('Faltan valores requeridos');
+    if (
+      P === undefined || P === null || isNaN(P) ||
+      i === undefined || i === null || isNaN(i) ||
+      n === undefined || n === null || isNaN(n)
+    ) throw new Error('Faltan valores requeridos o hay valores inválidos');
     return P * (1 + i * n);
   },
 
   // Calcular Interés Total (I)
   calculateI: (inputs: CalculatorInputs): number => {
     const { P, i, n } = inputs;
-    if (!P || !i || !n) throw new Error('Faltan valores requeridos');
+    if (
+      P === undefined || P === null || isNaN(P) ||
+      i === undefined || i === null || isNaN(i) ||
+      n === undefined || n === null || isNaN(n)
+    ) throw new Error('Faltan valores requeridos o hay valores inválidos');
     return P * i * n;
   },
 
   // Calcular Tasa de Interés (i)
   calculatei: (inputs: CalculatorInputs): number => {
     const { I, P, n } = inputs;
-    if (!I || !P || !n) throw new Error('Faltan valores requeridos');
+    if (
+      I === undefined || I === null || isNaN(I) ||
+      P === undefined || P === null || isNaN(P) ||
+      n === undefined || n === null || isNaN(n)
+    ) throw new Error('Faltan valores requeridos o hay valores inválidos');
     return I / (P * n);
   },
 
   // Calcular Número de Periodos (n)
   calculaten: (inputs: CalculatorInputs): number => {
     const { I, P, i } = inputs;
-    if (!I || !P || !i) throw new Error('Faltan valores requeridos');
+    if (
+      I === undefined || I === null || isNaN(I) ||
+      P === undefined || P === null || isNaN(P) ||
+      i === undefined || i === null || isNaN(i)
+    ) throw new Error('Faltan valores requeridos o hay valores inválidos');
     return I / (P * i);
   }
 };
