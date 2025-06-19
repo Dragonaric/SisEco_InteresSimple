@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="min-h-screen flex flex-col bg-gray-50">
           <Header />
-          <main className="flex-1 container mx-auto px-4 py-8">
+          <main className="flex-1 w-full">
             {children}
           </main>
           <Footer />

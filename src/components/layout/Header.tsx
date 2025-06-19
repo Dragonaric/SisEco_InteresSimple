@@ -3,9 +3,10 @@
 
 import Link from 'next/link'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/navigation-menu'
-import { Calculator, BookOpen, Home } from 'lucide-react'
+import { Calculator, BookOpen, Home, Menu, X } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
+import { useState, useEffect } from 'react'
 
 const navigationItems = [
 	{
@@ -29,6 +30,37 @@ const navigationItems = [
 ]
 
 export function Header() {
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+	// Prevenir scroll cuando el menú está abierto
+	useEffect(() => {
+		if (mobileMenuOpen) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'unset'
+		}
+		
+		// Cleanup al desmontar
+		return () => {
+			document.body.style.overflow = 'unset'
+		}
+	}, [mobileMenuOpen])
+
+	// Cerrar menú con Escape
+	useEffect(() => {
+		const handleEscape = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') {
+				setMobileMenuOpen(false)
+			}
+		}
+
+		if (mobileMenuOpen) {
+			document.addEventListener('keydown', handleEscape)
+		}
+
+		return () => document.removeEventListener('keydown', handleEscape)
+	}, [mobileMenuOpen])
+
 	return (
 		<header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 dark:bg-gray-950/95 dark:supports-[backdrop-filter]:bg-gray-950/80">
 			<div className="container mx-auto px-4">
@@ -46,7 +78,7 @@ export function Header() {
 						</span>
 					</Link>
 
-					{/* Navegación */}
+					{/* Navegación Desktop */}
 					<NavigationMenu className="hidden md:block">
 						<NavigationMenuList className="gap-1">
 							{navigationItems.map((item) => {
@@ -76,29 +108,111 @@ export function Header() {
 						</NavigationMenuList>
 					</NavigationMenu>
 
-					{/* Menú móvil (placeholder) */}
+					{/* Botón menú móvil */}
 					<div className="md:hidden">
-						<Button variant="outline" size="icon">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								className="h-5 w-5"
-							>
-								<line x1="4" x2="20" y1="12" y2="12" />
-								<line x1="4" x2="20" y1="6" y2="6" />
-								<line x1="4" x2="20" y1="18" y2="18" />
-							</svg>
+						<Button 
+							variant="ghost" 
+							size="icon" 
+							onClick={() => setMobileMenuOpen(true)} 
+							aria-label="Abrir menú"
+							className="hover:bg-gray-100 dark:hover:bg-gray-800"
+						>
+							<Menu className="h-5 w-5" />
 						</Button>
 					</div>
 				</div>
 			</div>
+
+			{/* Menú móvil mejorado */}
+			{mobileMenuOpen && (
+				<>
+					{/* Overlay con animación */}
+					<div
+						className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-all duration-300 ease-out md:hidden"
+						onClick={() => setMobileMenuOpen(false)}
+						aria-label="Cerrar menú móvil"
+					/>
+					
+					{/* Panel lateral del menú */}
+					<nav className="fixed top-0 right-0 z-50 h-full w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-2xl transform transition-transform duration-300 ease-out md:hidden">
+						{/* Header del menú */}
+						<div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+							<div className="flex items-center space-x-2">
+								<div className="rounded-lg bg-primary p-1.5 text-white">
+									<Calculator className="h-4 w-4" />
+								</div>
+								<span className="text-lg font-semibold text-gray-900 dark:text-white">
+									Menú
+								</span>
+							</div>
+							<Button 
+								variant="ghost" 
+								size="icon" 
+								onClick={() => setMobileMenuOpen(false)} 
+								aria-label="Cerrar menú"
+								className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
+							>
+								<X className="h-5 w-5" />
+							</Button>
+						</div>
+
+						{/* Contenido del menú */}
+						<div className="px-6 py-6">
+							<ul className="space-y-2">
+								{navigationItems.map((item, index) => {
+									const Icon = item.icon
+									return (
+										<li key={item.name}>
+											<Link
+												href={item.href}
+												className="group flex items-center gap-4 rounded-xl px-4 py-3 text-gray-700 dark:text-gray-200 transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary active:scale-95"
+												onClick={() => setMobileMenuOpen(false)}
+												style={{
+													animationDelay: `${index * 50}ms`,
+													animation: 'slideInFromRight 0.3s ease-out forwards'
+												}}
+											>
+												<div className="rounded-lg bg-gray-100 dark:bg-gray-800 p-2 group-hover:bg-primary group-hover:text-white transition-all duration-200">
+													<Icon className="h-5 w-5" />
+												</div>
+												<div className="flex-1">
+													<div className="font-medium text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+														{item.name}
+													</div>
+													<div className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+														{item.description}
+													</div>
+												</div>
+											</Link>
+										</li>
+									)
+								})}
+							</ul>
+						</div>
+
+						{/* Footer del menú */}
+						<div className="absolute bottom-0 left-0 right-0 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 px-6 py-4">
+							<p className="text-center text-sm text-gray-500 dark:text-gray-400">
+								SisEco Interés Simple
+							</p>
+						</div>
+					</nav>
+				</>
+			)}
+
+			{/* Estilos CSS para animaciones */}
+			<style jsx>{`
+				@keyframes slideInFromRight {
+					from {
+						opacity: 0;
+						transform: translateX(20px);
+					}
+					to {
+						opacity: 1;
+						transform: translateX(0);
+					}
+				}
+			`}</style>
 		</header>
 	)
 }
