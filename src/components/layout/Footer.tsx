@@ -1,19 +1,58 @@
 // components/layout/Footer.tsx
 'use client'
 
-import { Mail, MapPin, ExternalLink, BookText, Code, ShieldCheck } from 'lucide-react'
+import { Mail, MapPin, ExternalLink, BookText, Code, ShieldCheck, Users, User, GraduationCap } from 'lucide-react'
 import Link from 'next/link'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
   const lastUpdated = 'Junio 2025'
 
+  const teamMembers = [
+    {
+      name: 'Franklin Emanuel Garcia Gomez',
+      role: 'Responsable Directo',
+      degree: 'Ing. Sistemas',
+      icon: User
+    },
+    {
+      name: 'Celso Jimenes Obando',
+      role: 'Colaborador',
+      degree: 'Ing. Sistemas',
+      icon: GraduationCap
+    },
+    {
+      name: 'Kevin Brayan Chinuri Jancko',
+      role: 'Colaborador',
+      degree: 'Ing. Sistemas',
+      icon: GraduationCap
+    },
+    {
+      name: 'Sebastian Arnez Nigoevic',
+      role: 'Colaborador',
+      degree: 'Ing. Sistemas',
+      icon: GraduationCap
+    },
+    {
+      name: 'Dhery Mercado Mejia',
+      role: 'Colaborador',
+      degree: 'Ing. Sistemas',
+      icon: GraduationCap
+    },
+    {
+      name: 'Felipe Rivera Leyton Ludwin',
+      role: 'Colaborador',
+      degree: 'Ing. Sistemas',
+      icon: GraduationCap
+    }
+  ]
+
   return (
     <footer className="bg-dark text-white border-t border-gray-800">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Información de la Universidad */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
               <div className="bg-primary/20 p-2 rounded-lg mr-3">
                 <BookText className="h-5 w-5 text-primary" />
@@ -113,11 +152,48 @@ export function Footer() {
                 <span className="w-24">Responsable del código:</span>
                 <span className="font-medium">Grupo 1 del Sistemas Económico</span>
               </div>
-              <div className="flex items-center">
-                <span className="w-24">Responsable directo:</span>
-                <span className="font-medium">Franklin Emanuel Garcia Gomez</span>
-              </div>
             </div>
+          </div>
+        </div>
+
+        {/* Equipo de Desarrollo */}
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-primary flex items-center justify-center mb-2">
+              <Users className="h-6 w-6 mr-2" />
+              Equipo de Desarrollo
+            </h3>
+            <p className="text-blue-200 text-sm">
+              Grupo 1 - Sistemas Económico - Facultad de Tecnología
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {teamMembers.map((member, index) => (
+              <div
+                key={index}
+                className="bg-gray-800/50 rounded-lg p-4 border border-gray-700 hover:border-primary/50 transition-all duration-300 hover:bg-gray-800/70"
+              >
+                <div className="flex items-start space-x-3">
+                  <div className="bg-primary/20 p-2 rounded-lg flex-shrink-0">
+                    <member.icon className="h-4 w-4 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-white text-sm leading-tight mb-1">
+                      {member.name}
+                    </h4>
+                    <div className="flex items-center space-x-2 text-xs">
+                      <span className="bg-primary/20 text-primary px-2 py-1 rounded-full">
+                        {member.role}
+                      </span>
+                      <span className="text-blue-200">
+                        {member.degree}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
