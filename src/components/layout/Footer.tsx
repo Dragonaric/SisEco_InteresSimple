@@ -125,7 +125,7 @@ export function Footer() {
         <div className="border-t border-gray-800 mt-10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-blue-200 text-sm mb-4 md:mb-0">
-              © {currentYear} Facultad de Ciencias Económicas - UMSS. Todos los derechos reservados.
+              © {currentYear} Facultad de Ciencias y tecnología - UMSS. Todos los derechos reservados.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
               {[
