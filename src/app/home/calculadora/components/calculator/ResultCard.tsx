@@ -24,19 +24,22 @@ export function ResultCard({
   const formatValue = (key: string, value: number) => {
     const numValue = typeof value === 'number' ? value : Number(value);
     if (isNaN(numValue)) return '-';
-    if (key.toLowerCase().includes('interés') || key.toLowerCase().includes('tasa')) {
-      // Para tasa de interés
+    
+    // Solo aplicar formato de porcentaje para la tasa de interés (i)
+    if (key === 'Tasa de Interés' || key === 'i') {
       return new Intl.NumberFormat('es-BO', {
         style: 'percent',
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       }).format(numValue);
     }
-    if (key.toLowerCase().includes('periodo')) {
+    
+    if (key.toLowerCase().includes('periodo') || key === 'Número de Periodos' || key === 'n') {
       // Para número de periodos
       return numValue.toFixed(2);
     }
-    // Para P, F, I (valores monetarios)
+    
+    // Para P, F, I (valores monetarios) - incluyendo Interés Total
     return new Intl.NumberFormat('es-BO', {
       style: 'currency',
       currency: 'BOB',

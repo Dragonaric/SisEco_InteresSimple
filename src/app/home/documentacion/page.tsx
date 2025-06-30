@@ -43,7 +43,7 @@ export default function DocumentationPage() {
         <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
           <div className="text-center mb-4">
             <div className="text-3xl font-mono font-bold text-indigo-700 p-4 bg-white rounded-lg shadow-sm inline-block">
-              I = C × r × t
+              I = P × i × n
             </div>
           </div>
 
@@ -53,15 +53,15 @@ export default function DocumentationPage() {
               <span>Interés generado (en unidades monetarias)</span>
             </li>
             <li className="flex items-start">
-              <span className="bg-indigo-100 text-indigo-800 font-bold px-2 py-1 rounded mr-3">C</span>
+              <span className="bg-indigo-100 text-indigo-800 font-bold px-2 py-1 rounded mr-3">P</span>
               <span>Capital inicial (monto principal)</span>
             </li>
             <li className="flex items-start">
-              <span className="bg-indigo-100 text-indigo-800 font-bold px-2 py-1 rounded mr-3">r</span>
+              <span className="bg-indigo-100 text-indigo-800 font-bold px-2 py-1 rounded mr-3">i</span>
               <span>Tasa de interés (expresada en decimal, ej: 5% = 0.05)</span>
             </li>
             <li className="flex items-start">
-              <span className="bg-indigo-100 text-indigo-800 font-bold px-2 py-1 rounded mr-3">t</span>
+              <span className="bg-indigo-100 text-indigo-800 font-bold px-2 py-1 rounded mr-3">n</span>
               <span>Tiempo (en años)</span>
             </li>
           </ul>
@@ -234,7 +234,7 @@ export default function DocumentationPage() {
             <ul className="text-red-700 space-y-1 text-sm">
               <li>• Solo ganas interés sobre el capital inicial</li>
               <li>• Crecimiento lineal del dinero</li>
-              <li>• Fórmula: I = C × r × t</li>
+              <li>• Fórmula: I = P × i × n</li>
               <li>• Ideal para períodos cortos</li>
             </ul>
           </div>
@@ -243,7 +243,7 @@ export default function DocumentationPage() {
             <ul className="text-green-700 space-y-1 text-sm">
               <li>• Ganas interés sobre el capital + intereses acumulados</li>
               <li>• Crecimiento exponencial del dinero</li>
-              <li>• Fórmula: M = C × (1 + r)^t</li>
+              <li>• Fórmula: F = P × (1 + i)^n</li>
               <li>• Mejor para inversiones a largo plazo</li>
             </ul>
           </div>

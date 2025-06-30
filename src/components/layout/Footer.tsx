@@ -58,7 +58,7 @@ export function Footer() {
                 },
                 {
                   name: 'Carrera de Ingenieria de sistemas',
-                  href: 'https://www.fce.umss.edu.bo/webpage/',
+                  href: 'https://www.umss.edu.bo/licenciatura-en-ingenieria-de-sistemas/',
                   badge: 'Nuevo'
                 }
               ].map((link) => (

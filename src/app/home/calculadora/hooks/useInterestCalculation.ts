@@ -74,11 +74,21 @@ export function useInterestCalculation(variable: CalculatorVariable) {
 
       const result = calculateFn(numericInputs);
       
-      // Preparar el desglose
-      const breakdown = {
-        ...numericInputs,
-        [variable]: result
-      };
+      // Preparar el desglose con valores originales para mejor comprensión
+      const breakdown = Object.entries(inputs).reduce((acc, [key, value]) => {
+        const numValue = Number(value);
+        // Si la tasa de interés no es la variable que se está calculando, 
+        // guardar el valor convertido para evitar doble conversión en ResultCard
+        if (key === 'i' && variable !== 'i') {
+          acc[key] = percentToDecimal(numValue);
+        } else {
+          acc[key] = numValue;
+        }
+        return acc;
+      }, {} as Record<string, number>);
+      
+      // Agregar el resultado calculado
+      breakdown[variable] = result;
 
       setResult({ value: result, breakdown });
       setError(null);
